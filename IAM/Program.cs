@@ -7,10 +7,19 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-builder.Services.AddSingleton<DapperContext>();
-builder.Services.AddScoped<IUserService, UserService>();
+//builder.Services.AddSingleton<DapperContext>(config => { return new DapperContext(builder.Configuration); });
+
+builder.Services.AddSingleton<DapperContext>(config =>
+{
+    string connectionString = builder.Configuration.GetConnectionString("MsSql");
+    return new DapperContext(connectionString);
+});
+
+//builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUpsertService, UpsertService>();
 
 //builder.Services.AddDbContext<UserContext>(opt => opt.UseInMemoryDatabase("IAM"));
+//builder.Services.AddDbContext<UserContext>(opt => opt);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

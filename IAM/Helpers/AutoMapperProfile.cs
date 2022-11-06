@@ -9,7 +9,7 @@ namespace IAM.Helpers
         public AutoMapperProfile()
         {
 
-            CreateMap<>();
+            //CreateMap<>();
 
         }
     }

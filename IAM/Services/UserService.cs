@@ -4,7 +4,7 @@ using IAM.Models;
 
 namespace IAM.Services
 {
-    public class UserService : IUserService
+    public class UserService //: IUserService
     {
         private readonly DapperContext _context;
 
@@ -16,10 +16,10 @@ namespace IAM.Services
             _mapper = mapper;
         }
 
-        public IEnumerable<User> GetUsers()
-        {
-            return new IEnumerable<User>();
-        }
+        //public IEnumerable<User> GetUsers()
+        //{
+        //    return new IEnumerable<User>();
+        //}
 
     }
 }

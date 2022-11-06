@@ -6,22 +6,15 @@ namespace IAM.Helpers
 {
     public class DapperContext
     {
-        private readonly IConfiguration _configuration;
         private readonly string _connectionString;
 
-        public DapperContext(IConfiguration configuration)
+        public DapperContext(string connectionString)
         {
-            _configuration = configuration;
-            _connectionString = _configuration.GetConnectionString("SqlConnection");
+            _connectionString = connectionString;
         }
 
         public IDbConnection CreateConnection()
             => new SqlConnection(_connectionString);
-
-        public void Upsert()
-        {
-
-        }
     }
 }
 
