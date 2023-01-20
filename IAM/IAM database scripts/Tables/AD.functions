@@ -1,0 +1,11 @@
+CREATE TABLE [AD].[functions]
+(
+      [id] [UNIQUEIDENTIFIER] NOT NULL CONSTRAINT [DF__functions__id__49C3F6B7] DEFAULT (newid())
+    , [name] [NVARCHAR](256) COLLATE SQL_Latin1_General_CP1_CI_AS NULL
+    , [description] [NVARCHAR](1024) COLLATE SQL_Latin1_General_CP1_CI_AS NULL
+    , [createdTs] [DATETIME] NULL
+    , [modifiedTs] [DATETIME] NULL
+    , [createdBy] [NVARCHAR](36) COLLATE SQL_Latin1_General_CP1_CI_AS NULL
+    , [modifiedBy] [NVARCHAR](36) COLLATE SQL_Latin1_General_CP1_CI_AS NULL  
+    , CONSTRAINT [PK__function__3213E83F6141F120] PRIMARY KEY CLUSTERED ([id])
+);
