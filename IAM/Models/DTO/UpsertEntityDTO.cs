@@ -1,7 +1,7 @@
 ﻿using System;
-namespace IAM.Entities
+namespace IAM.Models.DTO
 {
-    public class UpsertRequestDTO
+    public class UpsertEntityDTO
     {
         public string? EntityType { get; set; }
         public Guid? UserId { get; set; }

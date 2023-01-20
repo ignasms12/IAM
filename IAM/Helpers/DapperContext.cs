@@ -1,5 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Configuration;
+//using Microsoft.Extensions.Configuration;
 using System.Data;
 
 namespace IAM.Helpers
@@ -14,7 +14,9 @@ namespace IAM.Helpers
         }
 
         public IDbConnection CreateConnection()
-            => new SqlConnection(_connectionString);
+        {
+            return new SqlConnection(_connectionString);
+        }
     }
 }
 

@@ -1,5 +1,4 @@
-﻿
-namespace IAM.Entities
+﻿namespace IAM.Models.DTO
 {
     public class UpsertResponseDTO
     {

@@ -2,36 +2,45 @@
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
 using IAM.Services;
-using IAM.Entities;
+using IAM.Models.DTO;
 using System.Text.Json;
 
 namespace IAM.Controllers
 {
-    [ApiController]
-    [Route("upsert")]
+	[ApiController]
+	[Route("api/upsert")]
+	public class UpsertController : ControllerBase
+	{
+		private readonly IUpsertService _upsertService;
 
-    public class UpsertController : ControllerBase
-    {
-        private readonly IUpsertService _upsertService;
+		public UpsertController(IUpsertService upsertService)
+		{
+			_upsertService = upsertService;
+		}
 
-        public UpsertController(IUpsertService upsertService)
-        {
-            _upsertService = upsertService;
-        }
+		[HttpPost("entity")]
+		public IEnumerable<UpsertResponseDTO> UpsertEntity([FromBody] string requestBody)
+		{
+            UpsertEntityDTO req = JsonSerializer.Deserialize<UpsertEntityDTO>(requestBody);
 
-        [HttpPost]
-        public IEnumerable<UpsertResponseDTO> Upsert([FromBody] string requestBody)
-        {
-            Console.WriteLine(requestBody);
+            UpsertEntityDTO serviceBody = new UpsertEntityDTO() { EntityType = req.EntityType, UserId = req.UserId, Content = req.Content };
 
-            //string reqBody = "{ \"EntityType\":\"functions\",\"UserId\":\"e58a86db-ea89-425c-acf9-f770f3dd9f60\",\"Content\":\"<Function><Name>AD.functions.upsert</Name><Description>Used for upserting (inserting OR updating) functions</Description></Function>\"}";
+			var results = _upsertService.UpsertEntity(serviceBody);
 
-            UpsertRequestDTO req = JsonSerializer.Deserialize<UpsertRequestDTO>(requestBody);
+			return results;
+		}
 
-            UpsertRequestDTO serviceBody = new UpsertRequestDTO() { EntityType = req.EntityType, UserId = req.UserId, Content = req.Content };
-            var results = _upsertService.Upsert(serviceBody);
-            return results;
-        }
-    }
+		[HttpPost("entityRelation")]
+		public IEnumerable<UpsertResponseDTO> UpsertEntityRelations([FromBody] string requestBody)
+		{
+            UpsertEntityRelationDTO req = JsonSerializer.Deserialize<UpsertEntityRelationDTO>(requestBody);
+
+            UpsertEntityRelationDTO serviceBody = new UpsertEntityRelationDTO() { DestEntity = req.DestEntity, RelationType = req.RelationType, UserId = req.UserId, Content = req.Content };
+
+			var results = _upsertService.UpsertEntityRelations(serviceBody);
+
+			return results;
+		}
+	}
 }
 

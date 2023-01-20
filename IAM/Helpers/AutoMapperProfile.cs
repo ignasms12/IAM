@@ -1,17 +1,17 @@
-﻿using AutoMapper;
-using IAM.Entities;
-using IAM.Models;
+﻿//using AutoMapper;
+//using IAM.Entities;
+//using IAM.Models;
 
-namespace IAM.Helpers
-{
-    public class AutoMapperProfile : Profile
-    {
-        public AutoMapperProfile()
-        {
+//namespace IAM.Helpers
+//{
+//    public class AutoMapperProfile : Profile
+//    {
+//        public AutoMapperProfile()
+//        {
 
-            //CreateMap<>();
+//            //CreateMap<>();
 
-        }
-    }
-}
+//        }
+//    }
+//}
 

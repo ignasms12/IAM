@@ -2,7 +2,7 @@
 
 namespace IAM.Models
 {
-	public class User
+	public class UserInfo
 	{
 		public Guid Id { get; set; }
 		public string? Username { get; set; }

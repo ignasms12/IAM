@@ -1,13 +1,11 @@
-﻿using System;
-using IAM.Helpers;
+﻿using IAM.Helpers;
 using Dapper;
 using System.Data;
-using IAM.Entities;
-using Microsoft.Data.SqlClient;
+using IAM.Models.DTO;
 
 namespace IAM.Services
 {
-	public class UpsertService : IUpsertService
+    public class UpsertService : IUpsertService
 	{
 		private readonly DapperContext _context;
 
@@ -16,26 +14,31 @@ namespace IAM.Services
 			_context = context;
 		}
 
-		public IEnumerable<UpsertResponseDTO> Upsert(UpsertRequestDTO requestBody)
+		public IEnumerable<UpsertResponseDTO> UpsertEntity(UpsertEntityDTO requestBody)
         {
 			using(var conn = _context.CreateConnection())
             {
 				var procedure = "[AD].[upsertWrapper]";
 
-				IEnumerable<UpsertResponseDTO> results = null;
+				IEnumerable<UpsertResponseDTO> results;
 
-				try
-                {
-					results = conn.Query<UpsertResponseDTO>(procedure, requestBody, commandType: CommandType.StoredProcedure);
-                }
-				catch(SqlException ex)
-                {
-					Console.WriteLine(ex);
-                }
+				results = conn.Query<UpsertResponseDTO>(procedure, requestBody, commandType: CommandType.StoredProcedure);
 
 				return results;
             }
         }
+
+		public IEnumerable<UpsertResponseDTO> UpsertEntityRelations(UpsertEntityRelationDTO requestBody)
+		{
+			using(var conn = _context.CreateConnection())
+			{
+				var procedure = "[AD].[upsertEntityRelations]";
+
+				IEnumerable<UpsertResponseDTO> results = conn.Query<UpsertResponseDTO>(procedure, requestBody, commandType: CommandType.StoredProcedure);
+
+				return results;
+			}
+		}
 	}
 }
 
